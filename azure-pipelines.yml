@@ -1,0 +1,64 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  testConfiguration: 'Release'
+  test_catalog: $(db_catalog)_test
+
+stages:
+- stage: Build_And_Unit_Test
+  variables:
+    dacpacLocation: 'src\ApiTracker\bin\$(buildConfiguration)\ApiTracker.dacpac'
+  jobs:
+  - job: Database
+    variables:
+      sqlproj: 'src\ApiTracker\ApiTracker.sqlproj'
+      dbLocation: src
+      unitTestName: ApiTracker.UnitTests
+      unitTestProj: '$(dbLocation)\$(unitTestName)\$(unitTestName).csproj'
+      assemblyLocation: $(dbLocation)\$(unitTestName)\bin\$(testConfiguration)
+    steps:
+    - task: MSBuild@1
+      inputs:
+        configuration: $(buildConfiguration)
+        solution: $(sqlproj)
+    - task: SqlAzureDacpacDeployment@1
+      inputs:
+        azureSubscription: $(azure_subscription)
+        authenticationType: aadAuthenticationPassword
+        serverName: $(db_source)
+        databaseName: $(test_catalog)
+        aadSqlUsername: $(db_username)
+        aadSqlPassword: $(db_password)
+        deployType: DacpacTask
+        deploymentAction: Publish
+        dacpacFile: $(dacpacLocation) 
+    - publish:  $(dacpacLocation)
+      artifact: ApiTrackerDacPac     
+- stage: Deployment
+  dependsOn: Build_And_Unit_Test
+  jobs:
+  - job: DeployDatabase
+    steps:
+    - download: current
+      artifact: ApiTrackerDacPac
+    - task: SqlAzureDacpacDeployment@1
+      inputs:
+        azureSubscription: $(azure_subscription)
+        authenticationType: aadAuthenticationPassword
+        serverName: $(db_source)
+        databaseName: $(db_catalog)
+        aadSqlUsername: $(db_username)
+        aadSqlPassword: $(db_password)
+        deployType: DacpacTask
+        deploymentAction: Publish
+        dacpacFile: $(Pipeline.Workspace)\**\*.dacpac
