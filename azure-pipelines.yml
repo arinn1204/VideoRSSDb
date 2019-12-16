@@ -17,13 +17,13 @@ variables:
 stages:
 - stage: Build_And_Unit_Test
   variables:
-    dacpacLocation: 'src\ApiTracker\bin\$(buildConfiguration)\ApiTracker.dacpac'
+    dacpacLocation: 'src\VideoRSSDb\bin\$(buildConfiguration)\VideoRSSDb.dacpac'
   jobs:
   - job: Database
     variables:
-      sqlproj: 'src\ApiTracker\ApiTracker.sqlproj'
+      sqlproj: 'src\VideoRSSDb\VideoRSSDb.sqlproj'
       dbLocation: src
-      unitTestName: ApiTracker.UnitTests
+      unitTestName: VideoRSSDb.UnitTests
       unitTestProj: '$(dbLocation)\$(unitTestName)\$(unitTestName).csproj'
       assemblyLocation: $(dbLocation)\$(unitTestName)\bin\$(testConfiguration)
     steps:
@@ -43,14 +43,14 @@ stages:
         deploymentAction: Publish
         dacpacFile: $(dacpacLocation) 
     - publish:  $(dacpacLocation)
-      artifact: ApiTrackerDacPac     
+      artifact: VideoRSSDbDacPac     
 - stage: Deployment
   dependsOn: Build_And_Unit_Test
   jobs:
   - job: DeployDatabase
     steps:
     - download: current
-      artifact: ApiTrackerDacPac
+      artifact: VideoRSSDbDacPac
     - task: SqlAzureDacpacDeployment@1
       inputs:
         azureSubscription: $(azure_subscription)
