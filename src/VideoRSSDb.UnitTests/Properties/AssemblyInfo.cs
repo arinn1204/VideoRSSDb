@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VideoRSSDb.UnitTest")]
+[assembly: AssemblyTitle("VideoRSSDb.UnitTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("VideoRSSDb.UnitTest")]
+[assembly: AssemblyProduct("VideoRSSDb.UnitTests")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("19e99ea2-c5d9-4729-8ac2-813c5f595a20")]
+[assembly: Guid("a31e03e9-df1c-443a-b5cf-104c813c0329")]
 
 // Version information for an assembly consists of the following four values:
 //

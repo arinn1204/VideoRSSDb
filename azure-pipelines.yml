@@ -55,8 +55,6 @@ stages:
         configuration: $(testConfiguration)
         solution: $(unitTestProj)
         msbuildVersion: 16.0
-        clean: true
-        restoreNugetPackages: true
     - task: VSTest@2
       inputs:
         testSelector: testAssemblies

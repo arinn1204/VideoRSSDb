@@ -117,6 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="testInitializeAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here that you want to run before 
+each test method (unit test) in this test class is run.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+DELETE FROM rss.video_rss
+	WHERE torrent_id LIKE 'test_%';</value>
+  </data>
+  <data name="should_return_id_of_entered_torrent_that_does_not_exist_PretestAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here that you want to run before
+the test script is run.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+INSERT INTO rss.video_rss(torrent_id, torrent_name, time_added, magnet)
+	VALUES('test_1112343', 'Some NAME', GETDATE(), 'magnet://');</value>
+  </data>
+  <data name="should_return_id_of_entered_torrent_that_does_not_exist_TestAction.SqlScript" xml:space="preserve">
+    <value>/*
+Add SQL statements here to exercise the database object 
+that you want to test.
+
+To test a stored procedure, invoke it here by adding 
+an EXEC statement that has appropriate parameters.
+
+In the lower pane, you can add test conditions that verify 
+whether the results of your SQL statements match what 
+you expect.
+*/
+DECLARE @new_ids rss.torrent_id_table_type;
+
+INSERT INTO @new_ids(id)
+	VALUES ('test_1112343');
+
+INSERT INTO @new_ids(id)
+	VALUES ('test_1112344');
+
+EXEC rss.usp_new_ids @new_ids;</value>
+  </data>
   <data name="should_raise_error_with_no_table_entered_TestAction.SqlScript" xml:space="preserve">
     <value>/*
 Add SQL statements here to exercise the database object 
@@ -137,55 +183,6 @@ BEGIN CATCH
 	DECLARE @ErrorMessage NVARCHAR(MAX) = ERROR_MESSAGE();
 	SELECT @ErrorMessage;
 END CATCH</value>
-  </data>
-  <data name="should_return_id_of_entered_torrent_that_does_not_exist_PretestAction.SqlScript" xml:space="preserve">
-    <value>/*
-Add SQL statements here that you want to run before
-the test script is run.
-
-In the lower pane, you can add test conditions that verify 
-whether the results of your SQL statements match what 
-you expect.
-*/
-
-INSERT INTO rss.video_rss(torrent_id, torrent_name, time_added, magnet)
-	VALUES('test_1112343', 'Some NAME', GETDATE(), 'magnet://');</value>
-  </data>
-  <data name="should_return_id_of_entered_torrent_that_does_not_exist_TestAction.SqlScript" xml:space="preserve">
-    <value>/*
-Add SQL statements here to exercise the database object 
-that you want to test.
-
-To test a stored procedure, invoke it here by adding 
-an EXEC statement that has appropriate parameters.
-
-In the lower pane, you can add test conditions that verify 
-whether the results of your SQL statements match what 
-you expect.
-*/
-
-DECLARE @new_ids rss.torrent_id_table_type;
-
-INSERT INTO @new_ids(id)
-	VALUES ('test_1112343');
-
-INSERT INTO @new_ids(id)
-	VALUES ('test_1112344');
-
-EXEC rss.usp_new_ids @new_ids;</value>
-  </data>
-  <data name="testInitializeAction.SqlScript" xml:space="preserve">
-    <value>/*
-Add SQL statements here that you want to run before 
-each test method (unit test) in this test class is run.
-
-In the lower pane, you can add test conditions that verify 
-whether the results of your SQL statements match what 
-you expect.
-*/
-
-DELETE FROM rss.video_rss
-	WHERE torrent_id LIKE 'test_%';</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
