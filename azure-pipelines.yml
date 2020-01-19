@@ -41,9 +41,27 @@ stages:
         aadSqlPassword: $(db_password)
         deployType: DacpacTask
         deploymentAction: Publish
-        dacpacFile: $(dacpacLocation) 
+        dacpacFile: $(dacpacLocation)
+    - task: NuGetCommand@2
+      inputs:
+        command: restore
+        restoreSolution: $(unitTestProj)
+        feedsToUse: Select
+        includeNuGetOrg: true
+        restoreDirectory: '$(Build.SourcesDirectory)\src\packages'
+    - task: MSBuild@1
+      inputs:
+        configuration: $(testConfiguration)
+        solution: $(unitTestProj)
+    - task: VSTest@2
+      inputs:
+        testSelector: testAssemblies
+        testAssemblyVer2: '$(unitTestName).dll'
+        searchFolder: $(assemblyLocation)
+        configuration: $(testConfiguration)
+        overrideTestrunParameters: '-override_connection_string true -db_source $(db_source) -db_catalog $(test_catalog) -db_username $(db_username) -db_password $(db_password)'
     - publish:  $(dacpacLocation)
-      artifact: VideoRSSDbDacPac     
+      artifact: VideoRSSDbDacPac
 - stage: Deployment
   dependsOn: Build_And_Unit_Test
   jobs:

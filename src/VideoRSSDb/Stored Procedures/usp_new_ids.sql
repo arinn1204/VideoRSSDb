@@ -3,10 +3,11 @@
 AS
 BEGIN
 	BEGIN TRY
-		BEGIN TRANSACTION
-
-
-		COMMIT TRANSACTION;
+		SELECT ids.id
+		FROM @torrent_data ids
+		LEFT JOIN [rss].[video_rss] rss
+			ON rss.torrent_id = ids.id
+		WHERE rss.magnet IS NULL;
 	END TRY
 	BEGIN CATCH
 		DECLARE @ErrorMessage NVARCHAR(MAX) = ERROR_MESSAGE();
@@ -16,7 +17,6 @@ BEGIN
         DECLARE @ErrorSeverity INT = ERROR_SEVERITY(),
             @ErrorState INT = ERROR_STATE();
 		
-        ROLLBACK TRANSACTION;
         RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
 	END CATCH
 END
