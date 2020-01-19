@@ -59,9 +59,13 @@
     <Folder Include="Properties" />
     <Folder Include="Security" />
     <Folder Include="Tables" />
+    <Folder Include="Stored Procedures" />
+    <Folder Include="User Defined Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Security\rss.sql" />
     <Build Include="Tables\video_rss.sql" />
+    <Build Include="Stored Procedures\usp_new_ids.sql" />
+    <Build Include="User Defined Types\torrent_id_table_type.sql" />
   </ItemGroup>
 </Project>
