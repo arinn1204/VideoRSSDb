@@ -49,12 +49,14 @@ stages:
         feedsToUse: Select
         includeNuGetOrg: true
         restoreDirectory: '$(Build.SourcesDirectory)\src\packages'
+    - powershell: gci -r
     - task: MSBuild@1
       inputs:
         configuration: $(testConfiguration)
         solution: $(unitTestProj)
         msbuildVersion: 16.0
         clean: true
+        restoreNugetPackages: true
     - task: VSTest@2
       inputs:
         testSelector: testAssemblies
