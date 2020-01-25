@@ -40,16 +40,16 @@ namespace VideoRSSDb.UnitTests
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction testInitializeAction;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GetNewTorrentTests));
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction should_return_id_of_entered_torrent_that_does_not_exist_TestAction;
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction should_return_id_of_entered_torrent_that_does_not_exist_PretestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition scalarValueCondition1;
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction should_return_id_of_entered_torrent_that_does_not_exist_PretestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction should_raise_error_with_no_table_entered_TestAction;
             Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition scalarValueCondition2;
             this.should_return_id_of_entered_torrent_that_does_not_existData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             this.should_raise_error_with_no_table_enteredData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
             testInitializeAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             should_return_id_of_entered_torrent_that_does_not_exist_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
-            should_return_id_of_entered_torrent_that_does_not_exist_PretestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             scalarValueCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
+            should_return_id_of_entered_torrent_that_does_not_exist_PretestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             should_raise_error_with_no_table_entered_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
             scalarValueCondition2 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.ScalarValueCondition();
             // 
@@ -57,20 +57,10 @@ namespace VideoRSSDb.UnitTests
             // 
             resources.ApplyResources(testInitializeAction, "testInitializeAction");
             // 
-            // should_return_id_of_entered_torrent_that_does_not_existData
-            // 
-            this.should_return_id_of_entered_torrent_that_does_not_existData.PosttestAction = null;
-            this.should_return_id_of_entered_torrent_that_does_not_existData.PretestAction = should_return_id_of_entered_torrent_that_does_not_exist_PretestAction;
-            this.should_return_id_of_entered_torrent_that_does_not_existData.TestAction = should_return_id_of_entered_torrent_that_does_not_exist_TestAction;
-            // 
             // should_return_id_of_entered_torrent_that_does_not_exist_TestAction
             // 
             should_return_id_of_entered_torrent_that_does_not_exist_TestAction.Conditions.Add(scalarValueCondition1);
             resources.ApplyResources(should_return_id_of_entered_torrent_that_does_not_exist_TestAction, "should_return_id_of_entered_torrent_that_does_not_exist_TestAction");
-            // 
-            // should_return_id_of_entered_torrent_that_does_not_exist_PretestAction
-            // 
-            resources.ApplyResources(should_return_id_of_entered_torrent_that_does_not_exist_PretestAction, "should_return_id_of_entered_torrent_that_does_not_exist_PretestAction");
             // 
             // scalarValueCondition1
             // 
@@ -82,11 +72,9 @@ namespace VideoRSSDb.UnitTests
             scalarValueCondition1.ResultSet = 1;
             scalarValueCondition1.RowNumber = 1;
             // 
-            // should_raise_error_with_no_table_enteredData
+            // should_return_id_of_entered_torrent_that_does_not_exist_PretestAction
             // 
-            this.should_raise_error_with_no_table_enteredData.PosttestAction = null;
-            this.should_raise_error_with_no_table_enteredData.PretestAction = null;
-            this.should_raise_error_with_no_table_enteredData.TestAction = should_raise_error_with_no_table_entered_TestAction;
+            resources.ApplyResources(should_return_id_of_entered_torrent_that_does_not_exist_PretestAction, "should_return_id_of_entered_torrent_that_does_not_exist_PretestAction");
             // 
             // should_raise_error_with_no_table_entered_TestAction
             // 
@@ -102,6 +90,18 @@ namespace VideoRSSDb.UnitTests
             scalarValueCondition2.NullExpected = false;
             scalarValueCondition2.ResultSet = 1;
             scalarValueCondition2.RowNumber = 1;
+            // 
+            // should_return_id_of_entered_torrent_that_does_not_existData
+            // 
+            this.should_return_id_of_entered_torrent_that_does_not_existData.PosttestAction = null;
+            this.should_return_id_of_entered_torrent_that_does_not_existData.PretestAction = should_return_id_of_entered_torrent_that_does_not_exist_PretestAction;
+            this.should_return_id_of_entered_torrent_that_does_not_existData.TestAction = should_return_id_of_entered_torrent_that_does_not_exist_TestAction;
+            // 
+            // should_raise_error_with_no_table_enteredData
+            // 
+            this.should_raise_error_with_no_table_enteredData.PosttestAction = null;
+            this.should_raise_error_with_no_table_enteredData.PretestAction = null;
+            this.should_raise_error_with_no_table_enteredData.TestAction = should_raise_error_with_no_table_entered_TestAction;
             // 
             // GetNewTorrentTests
             // 

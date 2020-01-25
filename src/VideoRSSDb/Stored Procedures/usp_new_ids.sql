@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [rss].[usp_new_ids]
-	@torrent_data [rss].[torrent_id_table_type] READONLY
+	@torrent_data [dbo].[torrent_id_table_type] READONLY
 AS
 BEGIN
 	BEGIN TRY
